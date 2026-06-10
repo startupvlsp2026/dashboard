@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Standard access rule for server-proxy architecture
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

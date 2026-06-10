@@ -1,0 +1,6 @@
+{
+  "name": "Team Management Dashboard",
+  "description": "Admin panel for team management, monitoring daily attendance, tasks, projects, leave requests, activity logs, and generating reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

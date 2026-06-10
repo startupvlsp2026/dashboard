@@ -1,0 +1,166 @@
+{
+  "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator account metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["super_admin", "admin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Information about an employee of the company",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employee_id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "department": { "type": "string" },
+        "designation": { "type": "string" },
+        "joining_date": { "type": "string" },
+        "salary": { "type": "number" },
+        "address": { "type": "string" },
+        "emergency_contact": { "type": "string" },
+        "profile_photo": { "type": "string" },
+        "status": { "type": "string", "enum": ["Active", "Inactive"] }
+      },
+      "required": ["id", "employee_id", "name", "email", "department", "designation"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Daily attendance clock record for an employee",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employee_id": { "type": "string" },
+        "check_in": { "type": "string" },
+        "check_out": { "type": "string" },
+        "date": { "type": "string" },
+        "working_hours": { "type": "number" },
+        "status": { "type": "string", "enum": ["Present", "Late", "Absent", "Half Day"] }
+      },
+      "required": ["id", "employee_id", "date", "status"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Company projects and client scope details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "project_name": { "type": "string" },
+        "client_name": { "type": "string" },
+        "description": { "type": "string" },
+        "start_date": { "type": "string" },
+        "end_date": { "type": "string" },
+        "team_members": { "type": "array" },
+        "budget": { "type": "number" },
+        "status": { "type": "string", "enum": ["Planning", "In Progress", "Completed", "On Hold", "Overdue"] }
+      },
+      "required": ["id", "project_name", "client_name"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Assigned task for an employee under a project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "project_id": { "type": "string" },
+        "employee_id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "due_date": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "In Progress", "Completed", "Overdue"] },
+        "progress": { "type": "number" },
+        "attachments": { "type": "array" },
+        "comments": { "type": "array" },
+        "history": { "type": "array" }
+      },
+      "required": ["id", "employee_id", "title"]
+    },
+    "Leave": {
+      "title": "Leave",
+      "description": "Leave requests submitted by employees",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employee_id": { "type": "string" },
+        "leave_type": { "type": "string", "enum": ["Casual", "Sick", "Paid"] },
+        "start_date": { "type": "string" },
+        "end_date": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Approved", "Rejected"] },
+        "reason": { "type": "string" }
+      },
+      "required": ["id", "employee_id", "leave_type", "start_date", "end_date", "status"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Log of actions taken by administrators and employees",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "employee_id": { "type": "string" },
+        "admin_name": { "type": "string" },
+        "action": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "action", "timestamp"]
+    },
+    "SystemNotification": {
+      "title": "SystemNotification",
+      "description": "System-wide warning, success, or info notification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["info", "warning", "success", "alert"] },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "is_read": { "type": "boolean" }
+      },
+      "required": ["id", "type", "title", "message", "timestamp", "is_read"]
+    }
+  },
+  "firestore": {
+    "admins": {
+      "schema": "Admin",
+      "description": "Collection of administrator user profiles"
+    },
+    "employees": {
+      "schema": "Employee",
+      "description": "Collection of active and inactive employees"
+    },
+    "attendance": {
+      "schema": "Attendance",
+      "description": "Daily timesheets clock activity trace data"
+    },
+    "projects": {
+      "schema": "Project",
+      "description": "Client scopes and operational targets of specified projects"
+    },
+    "tasks": {
+      "schema": "Task",
+      "description": "Tasks distribution queue database collection"
+    },
+    "leaves": {
+      "schema": "Leave",
+      "description": "Employee leave request ledger lists"
+    },
+    "activity_logs": {
+      "schema": "ActivityLog",
+      "description": "Historical audit logs for team workspace actions"
+    },
+    "notifications": {
+      "schema": "SystemNotification",
+      "description": "Unread and read notifications panel center lists"
+    }
+  }
+}
